@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup, Validators, FormControl} from "@angular/forms";
 import Swal from 'sweetalert2';
+import {ManualResultService} from "../../services/manual-result.service";
 
 @Component({
   selector: 'app-manual-result',
@@ -15,7 +16,7 @@ export class ManualResultComponent {
   highSecurityPassword: FormGroup;
 
 
-  constructor() {
+  constructor(private manualResultService: ManualResultService) {
     this.highSecurityPassword = new FormGroup({
       password: new FormControl(null, [Validators.required]),
     });
