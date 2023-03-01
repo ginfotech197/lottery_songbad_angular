@@ -11,15 +11,35 @@ import {ManualResultService} from "../../services/manual-result.service";
 export class ManualResultComponent {
 
   manualResultActive = false;
+  manualResultForm: FormGroup;
 
 
   highSecurityPassword: FormGroup;
 
+  drawTimes: any[] = [];
+  ranks: any[] = [];
+
 
   constructor(private manualResultService: ManualResultService) {
+
+    this.manualResultForm = new FormGroup({
+      drawMasterId: new FormControl(null, [Validators.required]),
+      rankId: new FormControl(null, [Validators.required]),
+      value: new FormControl(null, [Validators.required]),
+    });
+
     this.highSecurityPassword = new FormGroup({
       password: new FormControl(null, [Validators.required]),
     });
+
+    this.manualResultService.getDrawTimeListener().subscribe((response) => {
+      this.drawTimes = response;
+    });
+
+    this.manualResultService.getRankListener().subscribe((response) => {
+      this.ranks = response;
+    })
+
   }
 
 
@@ -37,6 +57,10 @@ export class ManualResultComponent {
       this.highSecurityPassword.reset();
     }
 
+  }
+
+  saveManualResult(){
+    console.log(this.manualResultForm.value);
   }
 
 }
