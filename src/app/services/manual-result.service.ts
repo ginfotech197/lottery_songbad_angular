@@ -47,16 +47,24 @@ export class ManualResultService {
 
   getManualResult(drawId: string){
     // @ts-ignore
-    this.http.get(this.BASE_API_URL + '/getResults/'+ drawId).subscribe((response: {success: number, data: any[]}) => {
-      this.manualResult = response.data;
-      this.manualResultSubject.next([...this.rank]);
-    });
+    // return this.http.get(this.BASE_API_URL + '/getResults/'+ drawId).
+    // pipe(catchError(this.errorService.serverError), tap((response: { success: number, data: any[] }) => {
+    //   this.manualResult = response.data;
+    //   this.manualResultSubject.next([...this.rank]);
+    // });
+
+    return this.http.get<{ success: number, data: any[] }>(this.BASE_API_URL + '/getResults/'+ drawId)
+      .pipe(catchError(this.errorService.serverError), tap((response: { success: number, data: any[] }) => {
+        this.manualResult = response.data;
+        this.manualResultSubject.next([...this.manualResult]);
+      }));
   }
 
   saveManualResult(data: any){
     return this.http.post<any>(this.BASE_API_URL + '/saveManualResult', data)
       .pipe(catchError(this.errorService.serverError), tap(response => {
-
+        this.manualResult.unshift(response.data);
+        this.manualResultSubject.next([...this.manualResult]);
       }));
   }
 
