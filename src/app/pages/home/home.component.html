@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div class="d-flex">
+  <div class="col-4"></div>
+  <div class="col-4 text-center">
+
+    <div *ngFor="let item of drawTimes; let i = index">
+      <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px" (click)="getManualResult(item.id)" mat-button>
+        {{item.visible_time}}</button>
+    </div>
+
+  </div>
+  <div class="col-4"></div>
+</div>
+
+

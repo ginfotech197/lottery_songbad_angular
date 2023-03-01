@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Subject} from "rxjs";
+import {catchError, Subject, tap} from "rxjs";
+import {ErrorService} from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ export class ManualResultService {
 
   drawTimeSubject = new Subject<any[]>();
   rankSubject = new Subject<any[]>();
+  manualResultSubject = new Subject<any[]>();
   drawTimes : any[] = [];
   rank : any[] = [];
+  manualResult : any[] = [];
 
   getDrawTimeListener(){
     return this.drawTimeSubject.asObservable();
@@ -23,7 +26,11 @@ export class ManualResultService {
     return this.rankSubject.asObservable();
   }
 
-  constructor(private http: HttpClient) {
+  getManualResultistener(){
+    return this.manualResultSubject.asObservable();
+  }
+
+  constructor(private http: HttpClient, private errorService: ErrorService) {
     // @ts-ignore
     this.http.get(this.BASE_API_URL + '/getDrawTime').subscribe((response: {success: number, data: any[]}) => {
       this.drawTimes = response.data;
@@ -37,4 +44,20 @@ export class ManualResultService {
     });
 
   }
+
+  getManualResult(drawId: string){
+    // @ts-ignore
+    this.http.get(this.BASE_API_URL + '/getResults/'+ drawId).subscribe((response: {success: number, data: any[]}) => {
+      this.manualResult = response.data;
+      this.manualResultSubject.next([...this.rank]);
+    });
+  }
+
+  saveManualResult(data: any){
+    return this.http.post<any>(this.BASE_API_URL + '/saveManualResult', data)
+      .pipe(catchError(this.errorService.serverError), tap(response => {
+
+      }));
+  }
+
 }

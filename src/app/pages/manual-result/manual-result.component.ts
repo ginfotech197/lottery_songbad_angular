@@ -60,7 +60,18 @@ export class ManualResultComponent {
   }
 
   saveManualResult(){
-    console.log(this.manualResultForm.value);
+    this.manualResultService.saveManualResult(this.manualResultForm.value).subscribe((response) => {
+      if(response.success == 1){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Saved',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.manualResultForm.reset();
+      }
+    });
   }
 
 }
