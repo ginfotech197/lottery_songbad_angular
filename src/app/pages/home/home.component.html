@@ -133,7 +133,7 @@
 <!--    </tbody>-->
 <!--  </table>-->
 
-    <div class=" fluid-container d-flex flex-col pb-2" *ngFor="let item of manualResult.slice(0,manualResult.length % 10 == 0? manualResult.length/10 : ((manualResult.length/10) + 1)) ; let idx = index">
+    <div class=" fluid-container d-flex flex-col" *ngFor="let item of manualResult.slice(0,manualResult.length % 10 == 0? manualResult.length/10 : ((manualResult.length/10) + 1)) ; let idx = index">
       <div style="border: 1px solid black" *ngFor="let item of manualResult.slice(idx*10, idx*10 + 10)">
         <div class="col" style="min-width: 93px">{{item.value}}</div>
       </div>
