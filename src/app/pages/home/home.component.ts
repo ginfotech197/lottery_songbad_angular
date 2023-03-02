@@ -8,16 +8,19 @@ import {ManualResultService} from "../../services/manual-result.service";
 })
 export class HomeComponent {
 
-  firstprize : any;
-  secondprize : any;
-  thirdPrize : any;
-  forthPrize : any;
-  fifthPrize : any;
-  sixthPrize : any;
+  firstPrizeResult : any;
+  secondPrizeResult : any;
+  thirdPrizeResult : any;
+  forthPrizeResult : any;
+  fifthPrizeResult : any;
+  sixthPrizeResult : any;
+
 
   drawTimes: any[] = [];
   manualResult: any[] = [];
   rank : any[] = [];
+
+  showManualResult= false;
 
   columnNumber =10;
 
@@ -30,6 +33,13 @@ export class HomeComponent {
   ngOnInit(): void {
     this.manualResultService.getManualResultistener().subscribe((response) => {
       this.manualResult = response;
+      this.firstPrizeResult =  this.manualResult.filter(x => x.rank_id == 1);
+      this.secondPrizeResult =  this.manualResult.filter(x => x.rank_id == 2);
+      this.thirdPrizeResult =  this.manualResult.filter(x => x.rank_id == 3);
+      this.forthPrizeResult =  this.manualResult.filter(x => x.rank_id == 4);
+      this.fifthPrizeResult =  this.manualResult.filter(x => x.rank_id == 5);
+      this.sixthPrizeResult =  this.manualResult.filter(x => x.rank_id == 6);
+      // console.log(x);
     });
 
     this.manualResultService.getRankListener().subscribe((response) => {
@@ -38,8 +48,16 @@ export class HomeComponent {
   }
 
   getManualResult(drawId: any){
-    this.manualResultService.getManualResult(drawId).subscribe(() => {});
+    this.manualResultService.getManualResult(drawId).subscribe((response) => {
+      if(response.success == 1){
+        this.showManualResult = true;
+      }
+    });
 
+  }
+
+  goToHome(){
+    this.showManualResult = false;
   }
 
 }
