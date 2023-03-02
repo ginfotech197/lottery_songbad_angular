@@ -8,16 +8,22 @@ import {ManualResultService} from "../../services/manual-result.service";
 })
 export class HomeComponent {
 
+  firstprize : any;
+  secondprize : any;
+  thirdPrize : any;
+  forthPrize : any;
+  fifthPrize : any;
+  sixthPrize : any;
+
   drawTimes: any[] = [];
   manualResult: any[] = [];
+  rank : any[] = [];
+
+  columnNumber =10;
 
   constructor(private manualResultService: ManualResultService) {
     this.manualResultService.getDrawTimeListener().subscribe((response) => {
       this.drawTimes = response;
-    });
-
-    this.manualResultService.getManualResultistener().subscribe((response) => {
-      this.manualResult = response;
     });
   }
 
@@ -25,10 +31,15 @@ export class HomeComponent {
     this.manualResultService.getManualResultistener().subscribe((response) => {
       this.manualResult = response;
     });
+
+    this.manualResultService.getRankListener().subscribe((response) => {
+      this.rank = response;
+    });
   }
 
   getManualResult(drawId: any){
     this.manualResultService.getManualResult(drawId).subscribe(() => {});
+
   }
 
 }
