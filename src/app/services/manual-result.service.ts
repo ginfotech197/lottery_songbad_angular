@@ -69,4 +69,13 @@ export class ManualResultService {
       }));
   }
 
+  updateRank(data: any){
+    return this.http.patch<any>(this.BASE_API_URL + '/updateRank', data)
+      .pipe(catchError(this.errorService.serverError), tap(response => {
+          const index = this.rank.findIndex(x => x.id === response.data.id);
+          this.rank[index] = response.data;
+          this.rankSubject.next([...this.rank]);
+      }));
+  }
+
 }

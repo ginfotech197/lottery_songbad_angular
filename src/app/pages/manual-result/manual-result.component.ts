@@ -12,7 +12,7 @@ export class ManualResultComponent {
 
   manualResultActive = false;
   manualResultForm: FormGroup;
-
+  rankForm: FormGroup;
 
   highSecurityPassword: FormGroup;
 
@@ -28,6 +28,11 @@ export class ManualResultComponent {
       value: new FormControl(null, [Validators.required]),
     });
 
+    this.rankForm = new FormGroup({
+      id: new FormControl(null, [Validators.required]),
+      prize: new FormControl(null, [Validators.required]),
+    });
+
     this.highSecurityPassword = new FormGroup({
       password: new FormControl(null, [Validators.required]),
     });
@@ -39,6 +44,23 @@ export class ManualResultComponent {
     this.manualResultService.getRankListener().subscribe((response) => {
       this.ranks = response;
     })
+
+  }
+
+  updateRank(){
+    this.manualResultService.updateRank(this.rankForm.value).subscribe((response) => {
+      if(response.success == 1){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Updated',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.rankForm.reset();
+      }
+
+    });
 
   }
 
