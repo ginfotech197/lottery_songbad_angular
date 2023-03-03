@@ -83,6 +83,9 @@ export class HomeComponent {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    // location.reload();
+    // this.showManualResult = true;
+    // console.log(this.showManualResult);
 
     //   const doc = new jsPDF();
     //   // doc.addHTML(document.getElementById("obrz"), function() {
@@ -112,8 +115,10 @@ export class HomeComponent {
         var position = 3;
         doc.addImage(contentDataURL, 'PNG', 1, position, imgWidth, imgHeight)
         doc.save('MYPdf.pdf'); // Generated PDF
+        this.showManualResult = true;
       });
     }
+    this.showManualResult = true;
   }
 
 }

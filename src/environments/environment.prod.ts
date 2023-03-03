@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_API_URL: 'https://rkng.xyz/multi_game_api/public/api',
+  BASE_API_URL: 'https://lotterysombad.rkng.xyz/lottery_songbad_api/public/api',
 };
