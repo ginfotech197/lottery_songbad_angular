@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ManualResultService} from "../../services/manual-result.service";
-import { jsPDF, RGBAData} from "jspdf";
+//import { jsPDF, RGBAData} from "jspdf";
 // @ts-ignore
 import domToImage from 'dom-to-image';
 require('dom-to-image');
