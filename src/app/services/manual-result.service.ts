@@ -45,14 +45,15 @@ export class ManualResultService {
 
   }
 
-  getManualResult(drawId: string){
-    // @ts-ignore
-    // return this.http.get(this.BASE_API_URL + '/getResults/'+ drawId).
-    // pipe(catchError(this.errorService.serverError), tap((response: { success: number, data: any[] }) => {
-    //   this.manualResult = response.data;
-    //   this.manualResultSubject.next([...this.rank]);
-    // });
+  getDrawTime(){
+    return [...this.drawTimes];
+  }
 
+  getRank(){
+    return [...this.rank];
+  }
+
+  getManualResult(drawId: string){
     return this.http.get<{ success: number, data: any[] }>(this.BASE_API_URL + '/getResults/'+ drawId)
       .pipe(catchError(this.errorService.serverError), tap((response: { success: number, data: any[] }) => {
         this.manualResult = response.data;

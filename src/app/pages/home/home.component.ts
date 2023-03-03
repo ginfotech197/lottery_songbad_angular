@@ -37,6 +37,7 @@ export class HomeComponent {
     this.manualResultService.getDrawTimeListener().subscribe((response) => {
       this.drawTimes = response;
     });
+    this.drawTimes = this.manualResultService.getDrawTime();
   }
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export class HomeComponent {
     this.manualResultService.getRankListener().subscribe((response) => {
       this.rank = response;
     });
+    this.rank = this.manualResultService.getRank();
   }
 
   getManualResult(drawId: any) {
