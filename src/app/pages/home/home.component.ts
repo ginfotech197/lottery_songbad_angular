@@ -2,8 +2,10 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ManualResultService} from "../../services/manual-result.service";
 import { jsPDF, RGBAData} from "jspdf";
 // @ts-ignore
-import domToImage from 'dom-to-image';
-require('dom-to-image');
+import html2canvas from 'html2canvas';
+import * as jspdf from "jspdf";
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -92,6 +94,26 @@ export class HomeComponent {
     //   });
     //   console.log(doc);
 
+  }
+
+  public captureScreen()
+  {
+    var data = document.getElementById('obrz');
+    if (data) {
+      html2canvas(data).then(canvas => {
+        // Few necessary setting options
+        var imgWidth = 208;
+        var pageHeight = 295;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+
+        const contentDataURL = canvas.toDataURL('image/png')
+        const doc = new jsPDF('p', 'mm', 'a4');
+        var position = 3;
+        doc.addImage(contentDataURL, 'PNG', 1, position, imgWidth, imgHeight)
+        doc.save('MYPdf.pdf'); // Generated PDF
+      });
+    }
   }
 
 }
