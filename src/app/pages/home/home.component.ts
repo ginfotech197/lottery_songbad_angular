@@ -58,7 +58,7 @@ export class HomeComponent {
 
   getManualResult(drawId: any) {
     this.manualResultService.getManualResult(drawId).subscribe((response) => {
-      if (response.success == 1) {
+      if (response.success == 1 && response.data.length > 0) {
         this.showManualResult = true;
       }
     });
