@@ -1,124 +1,606 @@
-<div class="d-flex" *ngIf="showManualResult == false">
-  <div class="col-4"></div>
-  <div class="col-4 text-center">
+<!--<div *ngFor="let item of drawTimes; let i = index">-->
+<!--  <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"  mat-button>-->
+<!--    {{item.visible_time}}</button>-->
+<!--  {{item |json}}-->
+<!--</div>-->
 
-    <div *ngFor="let item of drawTimes; let i = index">
-      <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px" (click)="getManualResult(item.id)" mat-button>
-        {{item.visible_time}}</button>
-    </div>
-
-  </div>
-  <div class="col-4"></div>
-</div>
-<div class="d-flex" *ngIf="showManualResult == true" (click)="goToHome()">
-  <div class="col-4">
-    <button  class="ml-5" mat-fab color="warn" aria-label="Example icon button with a home icon">
-      <mat-icon>home</mat-icon>
-    </button>
-  </div>
-  <div class="col-4 text-center" style="font-size: 20px; size: 20px">
-<!--    <button  class="ml-5 bg-primary" mat-button (click)="downloadPdf()">-->
-<!--      <mat-icon>print</mat-icon>-->
-<!--    </button>-->
-    <button  class="ml-5 bg-info" mat-button (click)="captureScreen()">
-      Download Pdf
-    </button>
-  </div>
-  <div class="col-4"></div>
-
-</div>
-
-<div id="obrz"  *ngIf="showManualResult == true" class=" content container text-center p-1" style="width: 50%; border: 2px solid black;">
-  <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>
-  <div class="d-flex mt-3">
-    <div class="col-4" style="font-size: 200%; font-weight: bold">{{manualResult[0].game_date}}</div>
-    <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>
-    <div class="col-4" style="font-size: 200%;; font-weight: bold">{{manualResult[0].game_date}}</div>
-  </div>
-
-  <div class="d-flex mt-3">
-    <div class="col-3" style="font-size: 15px; font-weight: bold">{{manualResult[0].draw_master.visible_time}}</div>
-    <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>
-    <div class="col-3" style="font-size: 15px; font-weight: bold">{{manualResult[0].draw_master.visible_time}}</div>
-  </div>
-
-  <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>
-
-  <div class="d-flex mb-2">
-<!--    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>1st Prize</i></div>-->
-    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>
-<!--    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">5 LAKHS/-</div>-->
-    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>
-    <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue"><i>{{manualResult[0].value}}</i></div>
-  </div>
-
-  <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL SERIALS)</i></div>
-
-  <div class="text-center p-1" style="font-size: 35px; font-weight: bold"><i>{{rank[1].rank_name}}:{{rank[1].prize}}/-</i></div>
-<!--  <pre>{{manualResult[0].rank_id | json}}</pre>-->
-<!--  <div class="d-flex text-center">-->
-<!--    <div class="col-1" style="font-size: 15px;"></div>-->
-<!--    <div class="col-1" *ngFor="let x of manualResult"  style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;"><div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div></div>-->
-<!--  </div>-->
-
-  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of secondPrizeResult.slice(0,secondPrizeResult.length % 9 == 0? secondPrizeResult.length/9 : ((secondPrizeResult.length/9) + 1)) ; let idx = index">
-    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of secondPrizeResult.slice(idx*9, idx*9 + 9)">
-      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>
-    </div>
-  </div>
-
-  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[2].rank_name}}:{{rank[2].prize}}/-</i></div>
-
-<!--  <div class="d-flex text-center">-->
-<!--    <div class="col-1" style="font-size: 15px;"></div>-->
-<!--    <div class="col-1" *ngFor="let x of manualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>-->
-<!--  </div>-->
-  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of thirdPrizeResult.slice(0,thirdPrizeResult.length % 9 == 0? thirdPrizeResult.length/9 : ((thirdPrizeResult.length/9) + 1)) ; let idx = index">
-    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of thirdPrizeResult.slice(idx*9, idx*9 + 9)">
-      <div class="col" style="width: 5vw"><div><i>{{item.value}}</i></div></div>
-    </div>
-  </div>
+<!--<div *ngFor="let item of secondPrizeResultFirstDraw; let i = index">-->
+<!--  {{item.value}}-->
+<!--</div>-->
+<div class="d-flex">
+  <div class="col-2"></div>
+  <div class="col-8 text-center">
 
 
-  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[3].rank_name}}:{{rank[3].prize}}/-</i></div>
+    <!--    /////// &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;  02::00-->
 
-<!--  <div class="d-flex text-center">-->
-<!--    <div class="col-1" style="font-size: 15px;"></div>-->
-<!--    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of manualResult"><div *ngIf="x.rank_id == 4"><i>{{x.value}}</i></div></div>-->
-<!--  </div>-->
-  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of forthPrizeResult.slice(0,forthPrizeResult.length % 9 == 0? forthPrizeResult.length/9 : ((forthPrizeResult.length/9) + 1)) ; let idx = index">
-    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of forthPrizeResult.slice(idx*9, idx*9 + 9)">
-      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>
-    </div>
-  </div>
 
-  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[4].rank_name}}:{{rank[4].prize}}/-</i></div>
+    <button class="m-3"
+      style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"
+      mat-button (click)="captureScreen('obrz')">
+      {{drawTimes[0].visible_time}}</button>
+    <div id="obrz" class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">
 
-<!--  <div class="d-flex text-center">-->
-<!--    <div class="col-1" style="font-size: 15px;"></div>-->
-<!--    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of manualResult"><div *ngIf="x.rank_id == 5"><i>{{x.value}}</i></div></div>-->
-<!--  </div>-->
-  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of fifthPrizeResult.slice(0,fifthPrizeResult.length % 9 == 0? fifthPrizeResult.length/9 : ((fifthPrizeResult.length/9) + 1)) ; let idx = index">
-    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of fifthPrizeResult.slice(idx*9, idx*9 + 9)">
-      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>
-    </div>
-  </div>
 
-  <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold"><i>{{rank[5].rank_name}}:{{rank[5].prize}}/-</i></div>
-
-    <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of sixthPrizeResult.slice(0,sixthPrizeResult.length % 9 == 0? sixthPrizeResult.length/9 : ((sixthPrizeResult.length/9) + 1)) ; let idx = index">
-      <div style="border: 1px solid black; text-align: center" *ngFor="let item of sixthPrizeResult.slice(idx*9, idx*9 + 9)">
-        <div class="col" style="width: 5vw">{{item.value}}</div>
+      <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>
+      <div class="d-flex mt-3">
+        <div class="col-4" style="font-size: 200%; font-weight: bold">{{firstManualResult[0].game_date}}</div>
+        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>
+        <div class="col-4" style="font-size: 200%;; font-weight: bold">{{firstManualResult[0].game_date}}</div>
       </div>
 
+
+      <div class="d-flex mt-3">
+        <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}
+        </div>
+        <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>
+        <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}
+        </div>
+      </div>
+
+
+      <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>
+
+
+      <div class="d-flex mb-2">
+        <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>
+        <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>
+        <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue">
+          <i>{{firstManualResult[0].value}}</i>
+        </div>
+      </div>
+
+
+      <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL
+          SERIALS)</i></div>
+      <div class="text-center p-1" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[1].rank_name}}1:{{secondPrizeResultFirstDraw.length>0? secondPrizeResultFirstDraw[0].rank_prize_value
+          :
+          "---"}}/- </i>
+      </div>
+      <!-- <pre>{{firstManualResult[0].rank_id | json}}</pre> -->
+      <div class="d-flex text-center">
+        <div class="col-1" style="font-size: 15px;"></div>
+        <div class="col-1" *ngFor="let x of firstManualResult"
+          style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;">
+          <div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div>
+        </div>
+      </div>
+
+      <!--  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"-->
+      <!--    *ngFor="let item of secondPrizeResultFirstDraw.slice(0,secondPrizeResultFirstDraw.length % 9 == 0? secondPrizeResultFirstDraw.length/9 : ((secondPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">-->
+      <!--    <div style=" text-align: center; font-weight: bolder !important;"-->
+      <!--      *ngFor="let item of secondPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">-->
+      <!--      {{item.value}}-->
+      <!--    </div>-->
+      <!--  </div>-->
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[2].rank_name}}:{{thirdPrizeResultFirstDraw.length>0? thirdPrizeResultFirstDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+
+      <!--  <div class="d-flex text-center">-->
+      <!--    <div class="col-1" style="font-size: 15px;"></div>-->
+      <!--    <div class="col-1" *ngFor="let x of firstManualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>-->
+      <!--  </div>-->
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+        *ngFor="let item of thirdPrizeResultFirstDraw.slice(0,thirdPrizeResultFirstDraw.length % 9 == 0? thirdPrizeResultFirstDraw.length/9 : ((thirdPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+          *ngFor="let item of thirdPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[3].rank_name}}:{{forthPrizeResultFirstDraw.length>0? forthPrizeResultFirstDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+        *ngFor="let item of forthPrizeResultFirstDraw.slice(0,forthPrizeResultFirstDraw.length % 9 == 0? forthPrizeResultFirstDraw.length/9 : ((forthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+          *ngFor="let item of forthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[4].rank_name}}:{{fifthPrizeResultFirstDraw.length>0? fifthPrizeResultFirstDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+        *ngFor="let item of fifthPrizeResultFirstDraw.slice(0,fifthPrizeResultFirstDraw.length % 9 == 0? fifthPrizeResultFirstDraw.length/9 : ((fifthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+          *ngFor="let item of fifthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold">
+        <i>{{rank[5].rank_name}}:{{sixthPrizeResultFirstDraw.length>0? sixthPrizeResultFirstDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+        *ngFor="let item of sixthPrizeResultFirstDraw.slice(0,sixthPrizeResultFirstDraw.length % 9 == 0? sixthPrizeResultFirstDraw.length/9 : ((sixthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">
+        <div style="border: 1px solid black; text-align: center"
+          *ngFor="let item of sixthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">{{item.value}}</div>
+        </div>
+
+      </div>
+      <div style="border: 2px solid black;" class="d-flex mt-1">
+        <div class="col-2"><b>{{firstManualResult[0].game_date}}</b></div>
+        <div class="col-8">Please check the results with relevent Official Government Gazatte</div>
+        <div class="col-2"><b>{{firstManualResult[0].draw_master.visible_time}}</b></div>
+      </div>
     </div>
-  <div style="border: 2px solid black;" class="d-flex mt-1">
-    <div class="col-2"><b>{{manualResult[0].game_date}}</b></div>
-    <div class="col-8">Please check the results with relevent Official Government Gazatte</div>
-    <div class="col-2"><b>{{manualResult[0].draw_master.visible_time}}</b></div>
+
+
+
+
+
+    <button class="m-3"
+      style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"
+      mat-button (click)="captureScreen('obrz1')">
+      {{drawTimes[1].visible_time}}</button>
+    <div id="obrz1" class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">
+
+
+      <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>
+      <div class="d-flex mt-3">
+        <div class="col-4" style="font-size: 200%; font-weight: bold">{{secondManualResult[0].game_date}}</div>
+        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>
+        <div class="col-4" style="font-size: 200%;; font-weight: bold">{{secondManualResult[0].game_date}}</div>
+      </div>
+
+
+      <div class="d-flex mt-3">
+        <div class="col-3" style="font-size: 15px; font-weight: bold">{{secondManualResult[0].draw_master.visible_time}}
+        </div>
+        <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>
+        <div class="col-3" style="font-size: 15px; font-weight: bold">{{secondManualResult[0].draw_master.visible_time}}
+        </div>
+      </div>
+
+
+      <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>
+
+
+      <div class="d-flex mb-2">
+        <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>
+        <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>
+        <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue">
+          <i>{{secondManualResult[0].value}}</i>
+        </div>
+      </div>
+
+
+      <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL
+        SERIALS)</i></div>
+      <div class="text-center p-1" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[1].rank_name}}1:{{secondPrizeResultSecondDraw.length>0? secondPrizeResultSecondDraw[0].rank_prize_value
+          :
+          "---"}}/- </i>
+      </div>
+      <!-- <pre>{{firstManualResult[0].rank_id | json}}</pre> -->
+      <div class="d-flex text-center">
+        <div class="col-1" style="font-size: 15px;"></div>
+        <div class="col-1" *ngFor="let x of secondManualResult"
+             style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;">
+          <div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div>
+        </div>
+      </div>
+
+      <!--  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"-->
+      <!--    *ngFor="let item of secondPrizeResultFirstDraw.slice(0,secondPrizeResultFirstDraw.length % 9 == 0? secondPrizeResultFirstDraw.length/9 : ((secondPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">-->
+      <!--    <div style=" text-align: center; font-weight: bolder !important;"-->
+      <!--      *ngFor="let item of secondPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">-->
+      <!--      {{item.value}}-->
+      <!--    </div>-->
+      <!--  </div>-->
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[2].rank_name}}:{{thirdPrizeResultSecondDraw.length>0? thirdPrizeResultSecondDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+
+      <!--  <div class="d-flex text-center">-->
+      <!--    <div class="col-1" style="font-size: 15px;"></div>-->
+      <!--    <div class="col-1" *ngFor="let x of firstManualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>-->
+      <!--  </div>-->
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+           *ngFor="let item of thirdPrizeResultSecondDraw.slice(0,thirdPrizeResultSecondDraw.length % 9 == 0? thirdPrizeResultSecondDraw.length/9 : ((thirdPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+             *ngFor="let item of thirdPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[3].rank_name}}:{{forthPrizeResultSecondDraw.length>0? forthPrizeResultSecondDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+           *ngFor="let item of forthPrizeResultSecondDraw.slice(0,forthPrizeResultSecondDraw.length % 9 == 0? forthPrizeResultSecondDraw.length/9 : ((forthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+             *ngFor="let item of forthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center p-2" style="font-size: 35px; font-weight: bold">
+        <i>{{rank[4].rank_name}}:{{fifthPrizeResultSecondDraw.length>0? fifthPrizeResultSecondDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+           *ngFor="let item of fifthPrizeResultSecondDraw.slice(0,fifthPrizeResultSecondDraw.length % 9 == 0? fifthPrizeResultSecondDraw.length/9 : ((fifthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">
+        <div style=" text-align: center; font-weight: bolder !important;"
+             *ngFor="let item of fifthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">
+            <div><i>{{item.value}}</i></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold">
+        <i>{{rank[5].rank_name}}:{{sixthPrizeResultSecondDraw.length>0? sixthPrizeResultSecondDraw[0].rank_prize_value :
+          "---"}}/-</i>
+      </div>
+
+      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+           *ngFor="let item of sixthPrizeResultSecondDraw.slice(0,sixthPrizeResultSecondDraw.length % 9 == 0? sixthPrizeResultSecondDraw.length/9 : ((sixthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">
+        <div style="border: 1px solid black; text-align: center"
+             *ngFor="let item of sixthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">
+          <div class="col" style="width: 5vw">{{item.value}}</div>
+        </div>
+
+      </div>
+      <div style="border: 2px solid black;" class="d-flex mt-1">
+        <div class="col-2"><b>{{secondManualResult[0].game_date}}</b></div>
+        <div class="col-8">Please check the results with relevent Official Government Gazatte</div>
+        <div class="col-2"><b>{{secondManualResult[0].draw_master.visible_time}}</b></div>
+      </div>
+    </div>
   </div>
-
-
+  <div class="col-2"></div>
 </div>
 
 
+
+
+
+<!--<div class="d-flex" >-->
+<!--  <div class="col-2"></div>-->
+<!--  <div class="col-8 text-center">-->
+
+<!--&lt;!&ndash;    <div *ngFor="let item of drawTimes; let i = index">&ndash;&gt;-->
+<!--&lt;!&ndash;      <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"  mat-button>&ndash;&gt;-->
+<!--&lt;!&ndash;        {{item.visible_time}}</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px" mat-button (click)="captureScreen('obrz')">-->
+<!--      {{drawTimes[0].visible_time}}</button>-->
+
+<!--    <div id="obrz"   class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">-->
+<!--&lt;!&ndash;      <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="d-flex mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 200%; font-weight: bold">{{firstManualResult[0].game_date}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 200%;; font-weight: bold">{{firstManualResult[0].game_date}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;      <div class="d-flex mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="d-flex mb-2">&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>1st Prize</i></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">5 LAKHS/-</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue"><i>{{firstManualResult[0].value}}</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL SERIALS)</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <pre>{{secondPrizeResultFirstDraw | json}}</pre>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="text-center p-1" style="font-size: 35px; font-weight: bold"><i>{{rank[1].rank_name}}1:{{secondPrizeResultFirstDraw.length>0? secondPrizeResultFirstDraw[0].rank_prize_value : "-&#45;&#45;"}}/- </i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  <pre>{{firstManualResult[0].rank_id | json}}</pre>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" *ngFor="let x of firstManualResult"  style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;"><div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of secondPrizeResultFirstDraw.slice(0,secondPrizeResultFirstDraw.length % 9 == 0? secondPrizeResultFirstDraw.length/9 : ((secondPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of secondPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;          {{item | json}}&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;     <pre>{{secondPrizeResultFirstDraw[0].value | json}}</pre>&ndash;&gt;-->
+<!--&lt;!&ndash;     <pre>{{manualResult | json}}</pre>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;      <div class="text-center p-2" style="font-size: 35px; font-weight: bold" ><i>{{rank[2].rank_name}}:{{thirdPrizeResultFirstDraw.length>0? thirdPrizeResultFirstDraw[0].rank_prize_value : "-&#45;&#45;"}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" *ngFor="let x of firstManualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of thirdPrizeResultFirstDraw.slice(0,thirdPrizeResultFirstDraw.length % 9 == 0? thirdPrizeResultFirstDraw.length/9 : ((thirdPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of thirdPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col" style="width: 5vw"><div><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;      <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[3].rank_name}}:{{forthPrizeResultFirstDraw.length>0? forthPrizeResultFirstDraw[0].rank_prize_value : "-&#45;&#45;"}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of firstManualResult"><div *ngIf="x.rank_id == 4"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of forthPrizeResultFirstDraw.slice(0,forthPrizeResultFirstDraw.length % 9 == 0? forthPrizeResultFirstDraw.length/9 : ((forthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of forthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[4].rank_name}}:{{fifthPrizeResultFirstDraw.length>0? fifthPrizeResultFirstDraw[0].rank_prize_value : "-&#45;&#45;"}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of firstManualResult"><div *ngIf="x.rank_id == 5"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      &lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of fifthPrizeResultFirstDraw.slice(0,fifthPrizeResultFirstDraw.length % 9 == 0? fifthPrizeResultFirstDraw.length/9 : ((fifthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of fifthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold"><i>{{rank[5].rank_name}}:{{sixthPrizeResultFirstDraw.length>0? sixthPrizeResultFirstDraw[0].rank_prize_value : "-&#45;&#45;"}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of sixthPrizeResultFirstDraw.slice(0,sixthPrizeResultFirstDraw.length % 9 == 0? sixthPrizeResultFirstDraw.length/9 : ((sixthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style="border: 1px solid black; text-align: center" *ngFor="let item of sixthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="col" style="width: 5vw">{{item.value}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div style="border: 2px solid black;" class="d-flex mt-1">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-2"><b>{{firstManualResult[0].game_date}}</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-8">Please check the results with relevent Official Government Gazatte</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-2"><b>{{firstManualResult[0].draw_master.visible_time}}</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+
+<!--    </div>-->
+
+
+
+
+<!--    <button class="m-3" style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px" mat-button (click)="captureScreen('obrz1')">-->
+<!--      {{drawTimes[1].visible_time}}</button>-->
+
+
+<!--    <div id="obrz1"   class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">-->
+<!--      <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>-->
+<!--      <div class="d-flex mt-3">-->
+<!--        <div class="col-4" style="font-size: 200%; font-weight: bold">{{secondManualResult[0].game_date}}</div>-->
+<!--        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>-->
+<!--        <div class="col-4" style="font-size: 200%;; font-weight: bold">{{secondManualResult[0].game_date}}</div>-->
+<!--      </div>-->
+
+
+<!--      <div class="d-flex mt-3">-->
+<!--        <div class="col-3" style="font-size: 15px; font-weight: bold">{{secondManualResult[0].draw_master.visible_time}}</div>-->
+<!--        <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>-->
+<!--        <div class="col-3" style="font-size: 15px; font-weight: bold">{{secondManualResult[0].draw_master.visible_time}}</div>-->
+<!--      </div>-->
+
+<!--      <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>-->
+
+<!--      <div class="d-flex mb-2">-->
+<!--        &lt;!&ndash;    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>1st Prize</i></div>&ndash;&gt;-->
+<!--        <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>-->
+<!--        &lt;!&ndash;    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">5 LAKHS/-</div>&ndash;&gt;-->
+<!--        <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>-->
+<!--        <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue"><i>{{firstPrizeResultSecondDraw[0].value}}</i></div>-->
+<!--      </div>-->
+
+<!--      <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL SERIALS)</i></div>-->
+
+<!--      <div class="text-center p-1" style="font-size: 35px; font-weight: bold"><i>{{rank[1].rank_name}}:{{rank[1].prize}}/-</i></div>-->
+<!--      &lt;!&ndash;  <pre>{{secondManualResult[0].rank_id | json}}</pre>&ndash;&gt;-->
+<!--      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" *ngFor="let x of secondManualResult"  style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;"><div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of secondPrizeResultSecondDraw.slice(0,secondPrizeResultSecondDraw.length % 9 == 0? secondPrizeResultSecondDraw.length/9 : ((secondPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">-->
+<!--        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of secondPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">-->
+<!--          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[2].rank_name}}:{{rank[2].prize}}/-</i></div>-->
+
+<!--      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" *ngFor="let x of secondManualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;  </div>&ndash;&gt;-->
+<!--      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of thirdPrizeResultSecondDraw.slice(0,thirdPrizeResultSecondDraw.length % 9 == 0? thirdPrizeResultSecondDraw.length/9 : ((thirdPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">-->
+<!--        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of thirdPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">-->
+<!--          <div class="col" style="width: 5vw"><div><i>{{item.value}}</i></div></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+<!--      <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[3].rank_name}}:{{rank[3].prize}}/-</i></div>-->
+
+<!--      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of secondManualResult"><div *ngIf="x.rank_id == 4"><i>{{x.value}}</i></div></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;  </div>&ndash;&gt;-->
+<!--      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of forthPrizeResultSecondDraw.slice(0,forthPrizeResultSecondDraw.length % 9 == 0? forthPrizeResultSecondDraw.length/9 : ((forthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">-->
+<!--        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of forthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">-->
+<!--          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[4].rank_name}}:{{rank[4].prize}}/-</i></div>-->
+
+<!--      &lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of secondManualResult"><div *ngIf="x.rank_id == 5"><i>{{x.value}}</i></div></div>&ndash;&gt;-->
+<!--      &lt;!&ndash;  </div>&ndash;&gt;-->
+<!--      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of fifthPrizeResultSecondDraw.slice(0,fifthPrizeResultSecondDraw.length % 9 == 0? fifthPrizeResultSecondDraw.length/9 : ((fifthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">-->
+<!--        <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of fifthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">-->
+<!--          <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold"><i>{{rank[5].rank_name}}:{{rank[5].prize}}/-</i></div>-->
+
+<!--      <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of sixthPrizeResultSecondDraw.slice(0,sixthPrizeResultSecondDraw.length % 9 == 0? sixthPrizeResultSecondDraw.length/9 : ((sixthPrizeResultSecondDraw.length/9) + 1)) ; let idx = index">-->
+<!--        <div style="border: 1px solid black; text-align: center" *ngFor="let item of sixthPrizeResultSecondDraw.slice(idx*9, idx*9 + 9)">-->
+<!--          <div class="col" style="width: 5vw">{{item.value}}</div>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div style="border: 2px solid black;" class="d-flex mt-1">-->
+<!--        <div class="col-2"><b>{{secondManualResult[0].game_date}}</b></div>-->
+<!--        <div class="col-8">Please check the results with relevent Official Government Gazatte</div>-->
+<!--        <div class="col-2"><b>{{secondManualResult[0].draw_master.visible_time}}</b></div>-->
+<!--      </div>-->
+
+
+<!--    </div>-->
+
+<!--  </div>-->
+<!--  <div class="col-2"></div>-->
+<!--</div>-->
+<!--&lt;!&ndash;<div class="d-flex" *ngIf="showManualResult == true" (click)="goToHome()">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="col-4">&ndash;&gt;-->
+<!--&lt;!&ndash;    <button  class="ml-5" mat-fab color="warn" aria-label="Example icon button with a home icon">&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-icon>home</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="col-4 text-center" style="font-size: 20px; size: 20px">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <button  class="ml-5 bg-primary" mat-button (click)="downloadPdf()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <mat-icon>print</mat-icon>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <button  class="ml-5 bg-info" mat-button (click)="captureScreen()">&ndash;&gt;-->
+<!--&lt;!&ndash;      Download Pdf&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="col-4"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div id="obrz"  *ngIf="showManualResult == true" class=" content container text-center p-1" style="width: 50%; border: 2px solid black;">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="font-size: 75%"><b><i>BHUTAN STATE LOTTERY</i></b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="d-flex mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 200%; font-weight: bold">{{firstManualResult[0].game_date}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>NODI</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 200%;; font-weight: bold">{{firstManualResult[0].game_date}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="d-flex mt-3">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-6" style="font-size: 20px; font-weight: bold"><i>MOTI WEEKLY MORNING</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-3" style="font-size: 15px; font-weight: bold">{{firstManualResult[0].draw_master.visible_time}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="text-center p-3"><i>60st Draw at 01/02/2023 MRP 6/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="d-flex mb-2">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>1st Prize</i></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 35px; font-weight: bolder; color: blue"><i>{{rank[0].rank_name}}</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">5 LAKHS/-</div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 40px; font-weight: bolder;  color: red">{{rank[0].prize}}/-</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-4" style="font-size: 35px; font-weight: bolder;  color: blue"><i>{{firstManualResult[0].value}}</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="text-center p-1" style="font-size: 17px; font-weight: bold"><i>Cons.Prize:1000/- 23040 (REMAINING ALL SERIALS)</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="text-center p-1" style="font-size: 35px; font-weight: bold"><i>{{rank[1].rank_name}}:{{rank[1].prize}}/-</i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <pre>{{firstManualResult[0].rank_id | json}}</pre>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" *ngFor="let x of firstManualResult"  style="font-size: 17px; font-weight: bolder !important;  padding-right: 10%;"><div *ngIf="x.rank_id == 2"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of secondPrizeResultFirstDraw.slice(0,secondPrizeResultFirstDraw.length % 9 == 0? secondPrizeResultFirstDraw.length/9 : ((secondPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of secondPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[2].rank_name}}:{{rank[2].prize}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" *ngFor="let x of firstManualResult" style="font-size: 17px; font-weight: bold"><div *ngIf="x.rank_id == 3"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of thirdPrizeResultFirstDraw.slice(0,thirdPrizeResultFirstDraw.length % 9 == 0? thirdPrizeResultFirstDraw.length/9 : ((thirdPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of thirdPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="col" style="width: 5vw"><div><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[3].rank_name}}:{{rank[3].prize}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of firstManualResult"><div *ngIf="x.rank_id == 4"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of forthPrizeResultFirstDraw.slice(0,forthPrizeResultFirstDraw.length % 9 == 0? forthPrizeResultFirstDraw.length/9 : ((forthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of forthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="text-center p-2" style="font-size: 35px; font-weight: bold"><i>{{rank[4].rank_name}}:{{rank[4].prize}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;  <div class="d-flex text-center">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 15px;"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="col-1" style="font-size: 17px; font-weight: bold" *ngFor="let x of firstManualResult"><div *ngIf="x.rank_id == 5"><i>{{x.value}}</i></div></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of fifthPrizeResultFirstDraw.slice(0,fifthPrizeResultFirstDraw.length % 9 == 0? fifthPrizeResultFirstDraw.length/9 : ((fifthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style=" text-align: center; font-weight: bolder !important;" *ngFor="let item of fifthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="col" style="width: 5vw"><div ><i>{{item.value}}</i></div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div style="background-color: blue; color: yellow; font-size: 20px; font-weight: bold"><i>{{rank[5].rank_name}}:{{rank[5].prize}}/-</i></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%" *ngFor="let item of sixthPrizeResultFirstDraw.slice(0,sixthPrizeResultFirstDraw.length % 9 == 0? sixthPrizeResultFirstDraw.length/9 : ((sixthPrizeResultFirstDraw.length/9) + 1)) ; let idx = index">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div style="border: 1px solid black; text-align: center" *ngFor="let item of sixthPrizeResultFirstDraw.slice(idx*9, idx*9 + 9)">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col" style="width: 5vw">{{item.value}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="border: 2px solid black;" class="d-flex mt-1">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-2"><b>{{firstManualResult[0].game_date}}</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-8">Please check the results with relevent Official Government Gazatte</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-2"><b>{{firstManualResult[0].draw_master.visible_time}}</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
