@@ -10,7 +10,7 @@ import {ManualResultService} from "../../services/manual-result.service";
 })
 export class ManualResultComponent {
 
-  manualResultActive = false;
+  manualResultActive = true;
   manualResultForm: FormGroup;
   rankForm: FormGroup;
 
@@ -19,13 +19,20 @@ export class ManualResultComponent {
   drawTimes: any[] = [];
   ranks: any[] = [];
 
+  prizeValueInputArray: any[] = [];
+
+  numberOfItems: any[] = [];;
+  column = 5;
+  values = null;
+
 
   constructor(private manualResultService: ManualResultService) {
 
     this.manualResultForm = new FormGroup({
       drawMasterId: new FormControl(null, [Validators.required]),
       rankId: new FormControl(null, [Validators.required]),
-      value: new FormControl(null, [Validators.required]),
+      items: new FormControl(null, [Validators.required]),
+      values: new FormControl(null, [Validators.required]),
     });
 
     this.rankForm = new FormGroup({
@@ -45,6 +52,72 @@ export class ManualResultComponent {
       this.ranks = response;
     })
 
+  }
+
+  initializeArrayLength(){
+    this.numberOfItems.length = this.manualResultForm.value.items;
+  }
+
+  createArray(indexCol: number,indexRow: number,value: any){
+    const index = parseInt(String(parseInt(String(indexCol)) * this.column)) + parseInt(String(indexRow));
+    // console.log('indexCol ' + 'indexRow :  ' + (parseInt(String(parseInt(String(indexCol)) * this.column)) + parseInt(String(indexRow))));
+    // console.log(this.prizeValueInputArray);
+
+    // return;
+    if(this.manualResultForm.value.drawMasterId == null){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Please select draw time',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    if(this.manualResultForm.value.rankId == null){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Please select rank',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+    const findSameIndex = this.prizeValueInputArray.findIndex(x => x.value === value.value)
+    if(findSameIndex != -1){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Number Already Exists',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      value.value = null;
+      return;
+    }
+
+    // console.log(this.prizeValueInputArray[index]);
+    if(value.value == ""){
+      this.prizeValueInputArray.splice(index,1);
+      return;
+    }
+
+    if(this.prizeValueInputArray[index]){
+      let x = {
+        'drawMasterId': this.manualResultForm.value.drawMasterId,
+        'rankId' : this.manualResultForm.value.rankId,
+        'value' : value.value
+      }
+      this.prizeValueInputArray[index] = x;
+      return;
+    }
+
+    let x = {
+      'drawMasterId': this.manualResultForm.value.drawMasterId,
+      'rankId' : this.manualResultForm.value.rankId,
+      'value' : value.value
+    }
+    this.prizeValueInputArray.push(x);
   }
 
   updateRank(){
@@ -82,7 +155,7 @@ export class ManualResultComponent {
   }
 
   saveManualResult(){
-    this.manualResultService.saveManualResult(this.manualResultForm.value).subscribe((response) => {
+    this.manualResultService.saveManualResult(this.prizeValueInputArray).subscribe((response) => {
       if(response.success == 1){
         Swal.fire({
           position: 'top-end',
@@ -92,6 +165,10 @@ export class ManualResultComponent {
           timer: 2000
         });
         this.manualResultForm.reset();
+        // @ts-ignore
+        this.prizeValueInputArray = [];
+        this.numberOfItems.length = 0;
+
       }
     });
   }
