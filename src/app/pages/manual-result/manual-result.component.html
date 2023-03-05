@@ -50,7 +50,7 @@
                  *ngFor="let item of numberOfItems.slice(0,numberOfItems.length % column == 0? numberOfItems.length/column : ((numberOfItems.length/column) + 1)) ; let idx = index">
               <div style=" text-align: center; font-weight: bolder !important;"
                    *ngFor="let item of numberOfItems.slice(idx*column, idx*column + column) ; let idx1 = index">
-                <div class="col m-3" style="width: 5vw margin-left: 100px">
+                <div class="col m-3" style="width: 5vw; margin-left: 100px">
                   <mat-form-field style="padding-left: 5%" fxFlex="100">
 <!--                    <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">-->
                     <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">
@@ -63,7 +63,7 @@
             <button style="margin-left: 5%" mat-fab extended color="primary" (click)="saveManualResult()">
               Save
             </button>
-            
+
 
           </div>
 
