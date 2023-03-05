@@ -155,6 +155,17 @@ export class ManualResultComponent {
   }
 
   saveManualResult(){
+    if(this.manualResultForm.value.items != this.prizeValueInputArray.length){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Enter correct number of items',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      return;
+    }
+
     this.manualResultService.saveManualResult(this.prizeValueInputArray).subscribe((response) => {
       if(response.success == 1){
         Swal.fire({
