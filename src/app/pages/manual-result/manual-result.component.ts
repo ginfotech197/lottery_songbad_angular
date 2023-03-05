@@ -10,7 +10,7 @@ import {ManualResultService} from "../../services/manual-result.service";
 })
 export class ManualResultComponent {
 
-  manualResultActive = true;
+  manualResultActive = false;
   manualResultForm: FormGroup;
   rankForm: FormGroup;
 
