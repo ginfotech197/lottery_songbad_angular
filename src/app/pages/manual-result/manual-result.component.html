@@ -45,13 +45,15 @@
               <mat-label>Enter Number of Items</mat-label>
               <input type="text" matInput formControlName="items" (change)="initializeArrayLength()" placeholder="Enter No. of items">
             </mat-form-field>
+            {{innerWidth}}
 
-
-            <div class="  d-flex flex-col" style=""
+            <div class="  d-flex flex-col"
                  *ngFor="let item of numberOfItems.slice(0,numberOfItems.length % column == 0? numberOfItems.length/column : ((numberOfItems.length/column) + 1)) ; let idx = index">
-              <div style=" text-align: center; font-weight: bolder !important;; margin-left: ; "
+              <div style=" text-align: center; font-weight: bolder !important;"
                    *ngFor="let item of numberOfItems.slice(idx*column, idx*column + column) ; let idx1 = index">
-                <div class="col " style="width: 5vw; margin-left: 150px">
+                <!-- <div class="col " style="width: 5vw; margin-left: 12vw" [style]="{ 'margin-left': idx1 == 0? '2vw' : '12vw'}"> -->
+                  <div class="col " style="width: 5vw;" [style]="{ 'margin-left':  innerWidth == 1024 ? idx1 == 0? '2vw' : '18vw' : idx1 == 0? '10vw' : '12vw' }">
+                    <!-- <div class="col " style="width: 5vw;" [style]="{ 'background-color': innerWidth == 1024 ? 'red' : 'yellow'}"> -->
                   <mat-form-field style="padding-left: 1%" fxFlex="100">
 <!--                    <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">-->
                     <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">

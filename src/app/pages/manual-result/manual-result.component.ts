@@ -22,11 +22,16 @@ export class ManualResultComponent {
   prizeValueInputArray: any[] = [];
 
   numberOfItems: any[] = [];;
-  column = 5;
+  column = 4;
   values = null;
+
+  innerWidth : number;
 
 
   constructor(private manualResultService: ManualResultService) {
+
+    console.log(window.innerWidth);
+    this.innerWidth = window.innerWidth;
 
     this.manualResultForm = new FormGroup({
       drawMasterId: new FormControl(null, [Validators.required]),
