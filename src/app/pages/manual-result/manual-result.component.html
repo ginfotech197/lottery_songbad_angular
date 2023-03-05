@@ -18,10 +18,10 @@
 <div style="background-color: #cdd0d2; height: 100vh" *ngIf="manualResultActive == true">
   <mat-tab-group>
     <mat-tab label="Manual Result">
-      <div class="m-4"
+      <div class="m-3"
            style="border: 2px solid blue; padding-top: 2% !important; background-color: #c9f38e; border-radius: 20px">
         <form [formGroup]="manualResultForm">
-          <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px"
+          <div class="" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px"
                fxLayoutGap.xs="0">
             <mat-form-field style="padding-left: 5% !important;  " appearance="fill">
               <mat-label>Draw Time</mat-label>
@@ -32,7 +32,7 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field style="padding-left: 5% !important;  " appearance="fill">
+            <mat-form-field style="padding-left: 2% !important;  " appearance="fill">
               <mat-label>Rank</mat-label>
               <mat-select formControlName="rankId">
                 <mat-option *ngFor="let rank of ranks" [value]="rank.id">
@@ -41,16 +41,16 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field style="padding-left: 5%" fxFlex="100">
+            <mat-form-field style="padding-left: 2%" fxFlex="100">
               <mat-label>Enter Number of Items</mat-label>
               <input type="text" matInput formControlName="items" (change)="initializeArrayLength()" placeholder="Enter No. of items">
             </mat-form-field>
 
-            <div class=" fluid-container d-flex flex-col " style="padding-left: 2.3%"
+            <div class="  d-flex flex-col " style="padding-left: 2.3%"
                  *ngFor="let item of numberOfItems.slice(0,numberOfItems.length % column == 0? numberOfItems.length/column : ((numberOfItems.length/column) + 1)) ; let idx = index">
               <div style=" text-align: center; font-weight: bolder !important;"
                    *ngFor="let item of numberOfItems.slice(idx*column, idx*column + column) ; let idx1 = index">
-                <div class="col m-4" style="width: 5vw margin-left: 100px">
+                <div class="col m-3" style="width: 5vw margin-left: 100px">
                   <mat-form-field style="padding-left: 5%" fxFlex="100">
 <!--                    <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">-->
                     <input  type="text" value={{values}} matInput  (change)="createArray(idx,idx1 ,$event.target)"  placeholder="Enter Prize">
@@ -63,6 +63,7 @@
             <button style="margin-left: 5%" mat-fab extended color="primary" (click)="saveManualResult()">
               Save
             </button>
+            
 
           </div>
 
