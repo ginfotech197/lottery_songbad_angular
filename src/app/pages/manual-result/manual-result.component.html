@@ -45,7 +45,6 @@
               <mat-label>Enter Number of Items</mat-label>
               <input type="text" matInput formControlName="items" (change)="initializeArrayLength()" placeholder="Enter No. of items">
             </mat-form-field>
-            {{innerWidth}}
 
             <div class="  d-flex flex-col"
                  *ngFor="let item of numberOfItems.slice(0,numberOfItems.length % column == 0? numberOfItems.length/column : ((numberOfItems.length/column) + 1)) ; let idx = index">

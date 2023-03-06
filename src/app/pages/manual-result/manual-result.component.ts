@@ -30,7 +30,6 @@ export class ManualResultComponent {
 
   constructor(private manualResultService: ManualResultService) {
 
-    console.log(window.innerWidth);
     this.innerWidth = window.innerWidth;
 
     this.manualResultForm = new FormGroup({

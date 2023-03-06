@@ -104,6 +104,7 @@ export class HomeComponent {
       this.fifthPrizeResultSecondDraw = this.secondManualResult.filter(x => x.rank_id == 5);
       this.sixthPrizeResultSecondDraw = this.secondManualResult.filter(x => x.rank_id == 6);
 
+      // console.log(this.firstPrizeResultSecondDraw);
       // this.firstPrizeResult = this.manualResult.filter(x => x.rank_id == 1);
       // this.secondPrizeResult = this.manualResult.filter(x => x.rank_id == 2);
       // this.thirdPrizeResult = this.manualResult.filter(x => x.rank_id == 3);
