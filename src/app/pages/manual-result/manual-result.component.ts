@@ -87,6 +87,12 @@ export class ManualResultComponent {
       });
     }
 
+    // console.log(this.prizeValueInputArray[index]);
+    // if(value.value == ""){
+    //   this.prizeValueInputArray.splice(index,1);
+    //   return;
+    // }
+
     const findSameIndex = this.prizeValueInputArray.findIndex(x => x.value === value.value)
     if(findSameIndex != -1){
       Swal.fire({
@@ -98,30 +104,24 @@ export class ManualResultComponent {
       });
       value.value = null;
       return;
-    }
-
-    // console.log(this.prizeValueInputArray[index]);
-    if(value.value == ""){
-      this.prizeValueInputArray.splice(index,1);
-      return;
-    }
-
-    if(this.prizeValueInputArray[index]){
+    }else{
       let x = {
         'drawMasterId': this.manualResultForm.value.drawMasterId,
         'rankId' : this.manualResultForm.value.rankId,
         'value' : value.value
       }
-      this.prizeValueInputArray[index] = x;
-      return;
+      this.prizeValueInputArray.push(x);
     }
 
-    let x = {
-      'drawMasterId': this.manualResultForm.value.drawMasterId,
-      'rankId' : this.manualResultForm.value.rankId,
-      'value' : value.value
-    }
-    this.prizeValueInputArray.push(x);
+    // if(this.prizeValueInputArray[index]){
+    //   let x = {
+    //     'drawMasterId': this.manualResultForm.value.drawMasterId,
+    //     'rankId' : this.manualResultForm.value.rankId,
+    //     'value' : value.value
+    //   }
+    //   this.prizeValueInputArray[index] = x;
+    //   return;
+    // }
   }
 
   updateRank(){
@@ -159,6 +159,7 @@ export class ManualResultComponent {
   }
 
   saveManualResult(){
+
     if(this.manualResultForm.value.items != this.prizeValueInputArray.length){
       Swal.fire({
         position: 'top-end',
@@ -167,6 +168,9 @@ export class ManualResultComponent {
         showConfirmButton: false,
         timer: 2000
       });
+      console.log(this.prizeValueInputArray);
+      console.log(this.prizeValueInputArray.length);
+      console.log(this.manualResultForm.value.items);
       return;
     }
 
