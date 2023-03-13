@@ -88,10 +88,10 @@ export class ManualResultComponent {
     }
 
     // console.log(this.prizeValueInputArray[index]);
-    // if(value.value == ""){
-    //   this.prizeValueInputArray.splice(index,1);
-    //   return;
-    // }
+    if(value.value == ""){
+      this.prizeValueInputArray.splice(index,1);
+      return;
+    }
 
     const findSameIndex = this.prizeValueInputArray.findIndex(x => x.value === value.value)
     if(findSameIndex != -1){
