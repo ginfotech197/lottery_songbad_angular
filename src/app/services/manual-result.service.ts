@@ -18,6 +18,9 @@ export class ManualResultService {
   rank : any[] = [];
   manualResult : any[] = [];
 
+  message : any[] = [];
+  messageSubject = new Subject<any[]>();
+
   getDrawTimeListener(){
     return this.drawTimeSubject.asObservable();
   }
@@ -43,6 +46,14 @@ export class ManualResultService {
       this.rankSubject.next([...this.rank]);
     });
 
+   
+   
+    this.http.get(this.BASE_API_URL + '/getGameMessage').subscribe((response => {
+       // @ts-ignore
+      this.message = response.data;
+      this.messageSubject.next([...this.message]);
+    }));
+
   }
 
   getDrawTime(){
@@ -60,6 +71,17 @@ export class ManualResultService {
         this.manualResultSubject.next([...this.manualResult]);
       }));
   }
+  // getMesssage(){
+  //   return this.http.get(this.BASE_API_URL + '/getGameMessage').subscribe((response => {
+  //     this.message = response;
+  //     console.log(this.message);
+  //     this.messageSubject.next([...this.message]);
+  //   }));
+  // }
+
+  getMesssageListener(){
+    return this.messageSubject.asObservable();
+  }
 
   saveManualResult(data: any){
     return this.http.post<any>(this.BASE_API_URL + '/saveManualResult', data)
@@ -75,6 +97,15 @@ export class ManualResultService {
           const index = this.rank.findIndex(x => x.id === response.data.id);
           this.rank[index] = response.data;
           this.rankSubject.next([...this.rank]);
+      }));
+  }
+
+  updateMessage(data: any){
+    return this.http.patch<any>(this.BASE_API_URL + '/updateGameMessage', data)
+      .pipe(catchError(this.errorService.serverError), tap(response => {
+          const index = this.message.findIndex(x => x.id === response.data.id);
+          this.message[index] = response.data;
+          this.messageSubject.next([...this.message]);
       }));
   }
 

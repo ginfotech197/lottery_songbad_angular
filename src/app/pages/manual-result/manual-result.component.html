@@ -142,6 +142,80 @@
       </div>
 
     </mat-tab>
+
+    <mat-tab label="Message">
+      <div class="d-flex">
+        <div class="col">
+          <div class="m-4"
+               style="min-height: 270px ;border: 2px solid blue; padding-top: 2% !important;padding-bottom: 5%; background-color: #c9f38e; border-radius: 20px">
+            <div class="text-center">
+              <h1><b>Message Update Form</b></h1>
+            </div>
+            <form [formGroup]="messageForm" >
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px"
+                   fxLayoutGap.xs="0">
+
+                <!-- <mat-form-field style="padding-left: 5% !important; width: 65%" appearance="fill">
+                  <mat-label>Message</mat-label>
+                  <mat-select formControlName="message">
+                    <mat-option *ngFor="let rank of ranks" [value]="rank.id">
+                      {{rank.rank_name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+
+                <mat-form-field style="padding-left: 5%; width: 65%" fxFlex="100">
+                  <mat-label>Prize</mat-label>
+                  <input type="text" matInput formControlName="message" placeholder="Enter Message">
+                </mat-form-field>
+              </div>
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px"
+                   fxLayoutGap.xs="0">
+
+                <!-- <mat-form-field style="padding-left: 5%; width: 65%" fxFlex="100">
+                  <mat-label>Prize</mat-label>
+                  <input type="text" matInput formControlName="prize" placeholder="Enter Prize">
+                </mat-form-field> -->
+              </div>
+              <div style="text-align: end ; padding-right: 80px">
+                <button class="mr-5" style="margin-left: 5%" mat-fab extended color="primary" (click)="updateMessage()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- <pre>{{message | json}}</pre> -->
+
+        <div class="col">
+          <div class="m-4"
+               style="border: 2px solid blue; padding-top: 2% !important; background-color: #c9f38e; border-radius: 20px">
+            <div class="text-center">
+              <h1><b>Rank</b></h1>
+            </div>
+
+            <div style="text-align: center" class="pl-5">
+              <table class="table table-hover ">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let m of message, let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td (dblclick)="onClickMessage(m)">{{m.message}}</td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </mat-tab>
   </mat-tab-group>
 </div>
 

@@ -48,6 +48,8 @@ export class HomeComponent {
   sixthPrizeResultSecondDraw: any[]=[];
 
   columnNumber = 10;
+  
+  message : any[] = [];
 
   constructor(private manualResultService: ManualResultService) {
     this.manualResultService.getDrawTimeListener().subscribe((response) => {
@@ -81,6 +83,11 @@ export class HomeComponent {
     // });
 
     // this.getManualResult(this.drawTimes[0].id);
+
+    this.manualResultService.getMesssageListener().subscribe((response) => {
+      this.message = response;
+      // console.log(this.message);
+    });
   }
 
   ngOnInit(): void {

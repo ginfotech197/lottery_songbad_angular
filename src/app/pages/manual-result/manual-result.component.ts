@@ -27,6 +27,9 @@ export class ManualResultComponent {
 
   innerWidth : number;
 
+  messageForm : FormGroup;
+  message : any[] = [];
+
 
   constructor(private manualResultService: ManualResultService) {
 
@@ -44,6 +47,11 @@ export class ManualResultComponent {
       prize: new FormControl(null, [Validators.required]),
     });
 
+    this.messageForm = new FormGroup({
+      id: new FormControl(null, [Validators.required]),
+      message: new FormControl(null, [Validators.required]),
+    });
+
     this.highSecurityPassword = new FormGroup({
       password: new FormControl(null, [Validators.required]),
     });
@@ -54,7 +62,16 @@ export class ManualResultComponent {
 
     this.manualResultService.getRankListener().subscribe((response) => {
       this.ranks = response;
+    });
+
+    this.manualResultService.getRankListener().subscribe((response) => {
+      this.ranks = response;
     })
+
+    this.manualResultService.getMesssageListener().subscribe((response) => {
+      this.message = response;
+      // console.log(this.message);
+    });
 
   }
 
@@ -141,6 +158,23 @@ export class ManualResultComponent {
 
   }
 
+  updateMessage(){
+    this.manualResultService.updateMessage(this.messageForm.value).subscribe((response) => {
+      if(response.success == 1){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Updated',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.messageForm.reset();
+      }
+
+    });
+
+  }
+
 
   validatePassword(){
     if(this.highSecurityPassword.value.password == '1234@admin'){
@@ -190,6 +224,15 @@ export class ManualResultComponent {
 
       }
     });
+  }
+
+  onClickMessage(msg: any){
+    console.log(msg);
+    this.messageForm.patchValue({
+      id: msg.id,
+      message: msg.message,
+    });  
+    
   }
 
 }
