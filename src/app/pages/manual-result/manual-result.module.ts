@@ -34,7 +34,8 @@ import {MatSelectModule} from "@angular/material/select";
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    
   ]
 })
 export class ManualResultModule { }

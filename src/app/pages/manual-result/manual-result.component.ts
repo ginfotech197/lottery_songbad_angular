@@ -48,7 +48,7 @@ export class ManualResultComponent {
     });
 
     this.messageForm = new FormGroup({
-      id: new FormControl(null, [Validators.required]),
+      id: new FormControl(null),
       message: new FormControl(null, [Validators.required]),
     });
 
@@ -231,8 +231,8 @@ export class ManualResultComponent {
     this.messageForm.patchValue({
       id: msg.id,
       message: msg.message,
-    });  
-    
+    });
+
   }
 
 }
