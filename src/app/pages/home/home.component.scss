@@ -1,0 +1,13 @@
+.blink-text{
+    background-color: #000;
+    // font-weight: bold;
+    // font-size: 2rem;
+    animation: blinkingText 2s infinite;
+}
+@keyframes blinkingText{
+    0%		{  background-color: #00ff0d;}
+    25%		{  background-color: #95bfff;}
+    50%		{  background-color: #f6b4f3;}
+    75%		{  background-color: #a7cbff;}
+    100%	{  background-color: #fbff00;}
+}

@@ -7,26 +7,42 @@
 <!--<div *ngFor="let item of secondPrizeResultFirstDraw; let i = index">-->
 <!--  {{item.value}}-->
 <!--</div>-->
-<div class="d-flex">
+<!-- <div class="d-flex"
+  style="background-image: url('assets/golden-lottery.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; filter: blur(8px); -webkit-filter: blur(8px);">
+</div> -->
+<div class="d-flex"
+  style="background-image: url('assets/golden-lottery.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; ">
   <div class="col-2"></div>
   <div class="col-8 text-center">
 
 
+
     <!--    /////// &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;  02::00-->
 
+    <div><b> click here to download the pdf </b></div>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z" />
+      </svg>
+    </div>
 
-    <button class="m-3"
-      style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"
+    <i class="bi bi-arrow-bar-down"></i>
+    <button class="m-3 blink-text"
+      style="border: 2px solid rgb(251, 0, 0); padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px; "
       mat-button (click)="captureScreen('obrz')" *ngIf="drawTimes[0]">
       {{drawTimes[0].visible_time}}</button>
-    <div id="obrz" class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">
+    <div id="obrz" class=" content container text-center p-1"
+      style="width: 80%; border: 2px solid black; background-color: rgba(240, 248, 255, 0.616);">
 
 
       <div style="font-size: 75%"><b><i>{{message[0].message}}</i></b></div>
       <div class="d-flex mt-3">
         <div class="col-4" style="font-size: 200%; font-weight: bold" *ngIf="firstManualResult[0]">
           {{firstManualResult[0].game_date}}</div>
-        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>{{message[1].message}}</i></div>
+        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>{{message[1].message}}</i>
+        </div>
         <div class="col-4" style="font-size: 200%;; font-weight: bold" *ngIf="firstManualResult[0]">
           {{firstManualResult[0].game_date}}</div>
       </div>
@@ -160,13 +176,19 @@
 
 
 
+    <div class="pt-2"><b> click here to download the pdf </b></div>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+      </svg>
+    </div>
 
-
-    <button class="m-3"
+    <button class="m-3 blink-text"
       style="border: 2px solid black; padding-top: 30px; padding-bottom: 30px; padding-left: 100px; padding-right: 100px"
       mat-button (click)="captureScreen('obrz1')" *ngIf="drawTimes[1]">
       {{drawTimes[1].visible_time}}</button>
-    <div id="obrz1" class=" content container text-center p-1" style="width: 80%; border: 2px solid black;">
+    <div id="obrz1" class=" content container text-center p-1"
+      style="width: 80%; border: 2px solid black;  background-color: rgba(240, 248, 255, 0.616);">
 
 
       <div style="font-size: 75%"><b><i>{{message[0].message}}</i></b></div>
@@ -178,7 +200,8 @@
       <div class="d-flex mt-3">
         <div class="col-4" style="font-size: 200%; font-weight: bold" *ngIf="secondManualResult[0]">
           {{secondManualResult[0].game_date}}</div>
-        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>{{message[1].message}}</i></div>
+        <div class="col-4" style="font-size: 60px; color: darkblue; font-weight: bold"><i>{{message[1].message}}</i>
+        </div>
         <div class="col-4" style="font-size: 200%;; font-weight: bold" *ngIf="secondManualResult[0]">
           {{secondManualResult[0].game_date}}</div>
       </div>
@@ -188,7 +211,9 @@
         <div class="col-3" style="font-size: 15px; font-weight: bold" *nfIf="secondManualResult[0]">
           {{secondManualResult[0].draw_master.visible_time}}
         </div>
-        <div class="col-6" style="font-size: 20px; font-weight: bold" *nfIf="secondManualResult[0]"><i>{{message[2].message}}</i></div>
+        <div class="col-6" style="font-size: 20px; font-weight: bold" *nfIf="secondManualResult[0]">
+          <i>{{message[2].message}}</i>
+        </div>
         <div class="col-3" style="font-size: 15px; font-weight: bold" *nfIf="secondManualResult[0]">
           {{secondManualResult[0].draw_master.visible_time}}
         </div>
