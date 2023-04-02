@@ -46,8 +46,8 @@ export class ManualResultService {
       this.rankSubject.next([...this.rank]);
     });
 
-   
-   
+
+
     this.http.get(this.BASE_API_URL + '/getGameMessage').subscribe((response => {
        // @ts-ignore
       this.message = response.data;
@@ -98,6 +98,16 @@ export class ManualResultService {
           this.rank[index] = response.data;
           this.rankSubject.next([...this.rank]);
       }));
+  }
+
+  publishResult(drawId: any){
+    return this.http.patch<any>(this.BASE_API_URL + '/updatePublished', {draw_master_id : drawId})
+      .pipe(catchError(this.errorService.serverError), tap(response => {
+        console.log(response.data);
+      // const index = this.manualResult.findIndex(x => x.id === response.data.id);
+      // this.manualResult[index] = response.data;
+      // this.manualResultSubject.next([...this.manualResult]);
+    }));
   }
 
   updateMessage(data: any){

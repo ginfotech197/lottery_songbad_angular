@@ -21,12 +21,13 @@ export class ManualResultComponent {
 
   prizeValueInputArray: any[] = [];
 
-  numberOfItems: any[] = [];;
+  numberOfItems: any[] = [];
   column = 4;
   values = null;
 
   innerWidth : number;
 
+  publishForm : FormGroup;
   messageForm : FormGroup;
   message : any[] = [];
 
@@ -45,6 +46,10 @@ export class ManualResultComponent {
     this.rankForm = new FormGroup({
       id: new FormControl(null, [Validators.required]),
       prize: new FormControl(null, [Validators.required]),
+    });
+
+    this.publishForm = new FormGroup({
+      drawMasterId: new FormControl(null, [Validators.required]),
     });
 
     this.messageForm = new FormGroup({
@@ -139,6 +144,13 @@ export class ManualResultComponent {
     //   this.prizeValueInputArray[index] = x;
     //   return;
     // }
+  }
+
+  publishResult(){
+    // console.log(this.publishForm.value);
+    this.manualResultService.publishResult(this.publishForm.value.drawMasterId).subscribe((response) => {
+
+    });
   }
 
   updateRank(){

@@ -143,6 +143,67 @@
 
     </mat-tab>
 
+    <mat-tab label="Publish">
+      <div class="d-flex">
+        <div class="col container">
+          <div class="m-4 "
+               style="min-height: 340px ;border: 2px solid blue; padding-top: 2% !important;padding-bottom: 5%; background-color: #c9f38e; border-radius: 20px">
+            <div class="text-center">
+              <h1><b>Rank Update Form</b></h1>
+            </div>
+            <form [formGroup]="publishForm" >
+              <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px"
+                   fxLayoutGap.xs="0">
+
+                <mat-form-field style="padding-left: 11% !important;  " appearance="fill">
+                  <mat-label>Draw Time</mat-label>
+                  <mat-select formControlName="drawMasterId">
+                    <mat-option *ngFor="let drawTime of drawTimes" [value]="drawTime.id">
+                      {{drawTime.visible_time}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <button class="mr-5" style="margin-left: 5%" mat-fab extended color="primary" (click)="publishResult()">
+                  Publish
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+<!--        <div class="col">-->
+<!--          <div class="m-4"-->
+<!--               style="border: 2px solid blue; padding-top: 2% !important; background-color: #c9f38e; border-radius: 20px">-->
+<!--            <div class="text-center">-->
+<!--              <h1><b>Rank</b></h1>-->
+<!--            </div>-->
+
+<!--            <div style="text-align: center" class="pl-5">-->
+<!--              <table class="table table-hover ">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                  <th scope="col">#</th>-->
+<!--                  <th scope="col">Rank</th>-->
+<!--                  <th scope="col">Value</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr *ngFor="let r of ranks, let i = index">-->
+<!--                  <th scope="row">{{i+1}}</th>-->
+<!--                  <td>{{r.rank_name}}</td>-->
+<!--                  <td>{{r.prize}}</td>-->
+<!--                </tr>-->
+
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+    </mat-tab>
+
     <mat-tab label="Message">
       <div class="d-flex">
         <div class="col">
